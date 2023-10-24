@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/videoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="240dp">
+
+        <!-- 视频播放页面 -->
+        <com.example.videoplayer.CustomVideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"/>
+
+        <!--
+            添加子布局
+            此子布局实现了滑动页面控制音量和亮度的UI显示
+        -->
+        <include layout="@layout/layout_progress"/>
+
+        <!-- 播放页面下面的操作栏 -->
+        <LinearLayout
+            android:id="@+id/controllerbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true">
+            <!-- 自定义进度条 -->
+            <!-- 此为控制内容播放进度的进度条 -->
+            <SeekBar
+                android:id="@+id/play_seek"
+                android:thumb="@null"
+                android:progressDrawable="@drawable/seekbar_style2"
+                android:progress="20"
+                android:max="100"
+                android:indeterminate="false"
+                android:layout_marginRight="-20dp"
+                android:layout_marginLeft="-20dp"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#101010"
+                android:gravity="center_vertical">
+
+                <!-- 操作栏左边内容: 包括播放/暂停按钮、播放时间显示等-->
+                <LinearLayout
+                    android:id="@+id/left_layout"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:id="@+id/pause_iv"
+                        android:layout_marginLeft="16dp"
+                        android:src="@drawable/pause_btn_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/time_current_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="00:00:00"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        android:layout_marginLeft="32dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="/"
+                        android:textColor="@color/gray_4c4c4c"
+                        android:textSize="14sp"
+                        android:layout_marginLeft="5dp"/>
+                    <TextView
+                        android:id="@+id/time_total_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="00:00:00"
+                        android:textColor="@color/gray_4c4c4c"
+                        android:textSize="14sp"
+                        android:layout_marginLeft="5dp"/>
+                </LinearLayout>
+
+                <!-- 操作栏右边的内容: 包括全屏icon以及在竖屏下是隐藏状态的音量控制icon-->
+                <LinearLayout
+                    android:id="@+id/volume_layout"
+                    android:layout_width="10dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@id/left_layout"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical|right">
+
+                    <ImageView
+                        android:id="@+id/volume_iv"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/volume_set_wh"/>
+
+                    <!-- 此为控制音量的进度条 -->
+                    <SeekBar
+                        android:id="@+id/volume_seek"
+                        android:visibility="gone"
+                        android:indeterminate="false"
+                        android:thumb="@null"
+                        android:progressDrawable="@drawable/seekbar_style_volume"
+                        android:max="100"
+                        android:progress="20"
+                        android:layout_width="100dp"
+                        android:layout_height="5dp"/>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="32dp"
+                        android:background="#1E1E1E"/>
+                    <ImageView
+                        android:id="@+id/screen_iv"
+                        android:src="@mipmap/screen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"/>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/web_start"
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_below="@+id/videoLayout"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:background="@color/blanchedalmond">
+
+        <EditText
+            android:id="@+id/video_website_or_local_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:gravity="center_vertical"
+            android:hint="请输入想要播放的网络视频地址或本地视频名称"
+            android:maxLength="200"
+            android:textColor="@color/black"
+            android:textColorHint="@color/gray"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
+        <ImageView
+            android:id="@+id/video_start_iv"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/video_start"
+            android:layout_alignParentRight="true"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
